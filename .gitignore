@@ -1,3 +1,7 @@
 /django_to_do_list/.env
 .idea
 venv
+**/*.jpg
+**/*.jpeg
+**/*.png
+**/migrations
