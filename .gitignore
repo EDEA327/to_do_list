@@ -1,5 +1,5 @@
 /django_to_do_list/.env
-.idea
+**/.idea
 venv
 **/*.jpg
 **/*.jpeg
