@@ -1,0 +1,13 @@
+{% extends 'base/skeleton.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Registro{% endblock title %}
+{% block content %}
+    <h1>Registro</h1>
+    <form method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" content="Enviar" %}
+    </form>
+    <p>Ya tienes una cuenta? <a href="{% url 'login' %}">Ingresa aquí</a></p>
+{% endblock content %}

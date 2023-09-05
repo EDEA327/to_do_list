@@ -1,0 +1,17 @@
+{% extends 'base/skeleton.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Confirmar Eliminación{% endblock title %}
+
+{% block content %}
+    <h1>¿Estás seguro de que deseas eliminar esta tarea?</h1>
+    <h2>Tarea: {{ task.title | capfirst }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-primary" type="button"><a style="color: white; padding-right: 5px"
+                                                         href="{% url 'to-do' %}">Volver</a></button>
+        {% bootstrap_button button_type="submit" content="Eliminar" %}
+    </form>
+{% endblock content %}
+
+

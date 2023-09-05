@@ -1,0 +1,38 @@
+{% extends 'base/skeleton.html' %}
+{% load static %}
+{% block title %}Inicio{% endblock title %}
+
+{% block personalized %}
+    body {
+    background-image: url('{% static "base/images/background.jpg" %}');
+    /* Establece el tamaño de la imagen de fondo */
+    background-size: cover;
+    /* Centra la imagen de fondo vertical y horizontalmente */
+    background-position: center;
+    /* Fija la imagen de fondo para que no se desplace con el contenido */
+    background-attachment: fixed;
+    }
+
+    .content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh; /* Ajusta esto según tus necesidades */
+    }
+
+    .welcome {
+    font-size: 36px;
+    color: white;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+{% endblock %}
+
+{% block content %}
+    <div class="content-container">
+        <h1 class="welcome">Bienvenido a mi proyecto</h1>
+        <!-- Aquí puedes agregar más contenido si lo deseas -->
+    </div>
+{% endblock content %}
+

@@ -1,0 +1,17 @@
+{% extends 'base/skeleton.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Crear Tarea{% endblock %}
+
+{% block content %}
+    <h1>Crear una nueva tarea</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button class="btn btn-primary" type="button"><a style="color: white; padding-right: 5px"
+                                                         href="{% url 'to-do' %}">Volver</a></button>
+        {% bootstrap_button button_type="submit" content="Enviar" %}
+    </form>
+{% endblock content %}
+

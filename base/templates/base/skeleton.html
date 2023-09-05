@@ -1,0 +1,206 @@
+{% load django_bootstrap5 %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arima:wght@100&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@300&display=swap" rel="stylesheet">
+    <title>To-Do-It: {% block title %}Home{% endblock title %}</title>
+    {% bootstrap_css %}
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: 'Arima', cursive;
+        }
+
+        .navbar {
+            background-color: #031a32;
+        }
+
+        .navbar a {
+            color: white;
+        }
+
+        .navbar a:hover {
+            color: greenyellow;
+        }
+
+        .brand-img {
+            color: white;
+        }
+
+        p {
+            color: black;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            padding-left: 20px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inconsolata', monospace;
+        }
+
+        .top-bar {
+            padding: 0 0 10px 0; /* Ajustar el espaciado interno del div */
+            justify-content: space-between;
+
+        }
+
+        /* Estilos para el título h2 dentro del div */
+        .top-bar h2 {
+            font-size: 24px;
+            font-weight: bold; /* Hace que el texto sea en negrita */
+        }
+
+        /* Estilos para el título h3 dentro del div */
+        .top-bar h3 {
+            font-size: 18px;
+            margin: 0; /* Elimina el margen predeterminado para evitar espacios innecesarios */
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Estilos para el contenedor de las tareas */
+        .task-item-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Estilos para el contenedor individual de cada tarea */
+        .task-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-top: 1px solid dimgray;
+        }
+
+        /* Estilos para el icono de tarea completada */
+        .icon-completed-task {
+            width: 20px;
+            height: 20px;
+            background-color: green;
+            margin-right: 10px;
+            border-radius: 50px;
+            /* Agregar aquí la URL o el contenido del icono si es necesario */
+        }
+
+        /* Estilos para el icono de tarea no completada */
+        .icon-uncompleted-task {
+            width: 20px;
+            height: 20px;
+            background-color: #e7e0e0;
+            margin-right: 10px;
+            border-radius: 50px;
+            /* Agregar aquí la URL o el contenido del icono si es necesario */
+        }
+
+        /* Estilos para el título de la tarea */
+        .task-title {
+            display: flex;
+            align-items: center;
+        }
+
+        .task-title a {
+            text-decoration: none;
+            color: black;
+            margin-left: 10px;
+            font-weight: bold;
+        }
+
+        .task-title a:hover {
+            color: blue;
+        }
+
+        #searchbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        #add-link {
+            color: lawngreen;
+            font-size: 42px;
+            text-decoration: none;
+            text-shadow: 1px 1px green;
+        }
+
+
+        /* Estilos para los enlaces de eliminar tarea */
+        .delete-link {
+            margin-left: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        /* Estilos para el texto tachado (tarea completada) */
+        i s {
+            text-decoration: line-through;
+        }
+
+        {% block personalized %}
+
+        {% endblock %}
+
+    </style>
+</head>
+<!---------- Inicio del body ------------->
+<body>
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+        {% if request.path != '/' %}
+            <a class="navbar-brand" href="{% url 'home' %}">Home</a>
+        {% else %}
+            <p class="brand-img">Brand-IMG</p>
+        {% endif %}
+        <ul class="navbar-nav ms-auto d-flex">
+            {% if user.is_authenticated %}
+                <li class="nav-item me-2">
+                    <a class="nav-link" href="{% url 'to-do' %}">Mis Tareas</a>
+                </li>
+                <li class="nav-item me-2">
+                    <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+                </li>
+            {% else %}
+                {% if request.path != '/login/' and request.path != '/register/' %}
+                    <li class="nav-item me-2">
+                        <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+                    </li>
+
+                    <li class="nav-item me-2">
+                        <a class="nav-link" href="{% url 'register' %}">Registrate</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    {% block content %}
+
+    {% endblock content %}
+    {% bootstrap_messages %}
+</div>
+
+{% bootstrap_javascript %}
+<!---------- Fin del body ------------->
+</body>
+</html>

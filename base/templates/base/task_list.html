@@ -1,0 +1,54 @@
+<!----- TODO: Crear los estilos de este template ----->
+{% extends 'base/skeleton.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Mis Tareas{% endblock %}
+
+
+{% block content %}
+
+    <div class="top-bar">
+        <h2>Hola {{ request.user|title }}</h2>
+        <h3 style="margin: 0;">Tienes <strong><i>{{ count }}</i></strong> tarea{{ count|pluralize }}
+            incompleta{{ count|pluralize }}</h3>
+    </div>
+
+    {#<h2>Lista de tareas</h2>#}
+
+    <div id="searchbar-container">
+        <form method="get" class="mt-20 d-flex">
+            <!------ TODO: Implementar una solicitud AJAX ------->
+            <label class="col-form-label" style="margin-right: 5px">
+                <input type="text" name="búsqueda" value="{{ searched_value }}">
+            </label>
+            <button type="submit">&#x1F50D;</button>
+
+        </form>
+        <a id="add-link" href="{% url 'create-task' %}">&#x1F7A5;</a>
+    </div>
+
+    <div class="task-item-container">
+        {% for task in task_list %}
+            <div class="task-container">
+                {% if task.completed %}
+                    <!----- TODO: Implementar el completado desde está vista ------->
+                    <div class="task-title">
+                        <div class="icon-completed-task"></div>
+                        <i><s><a href="{% url 'update-task' task.id %}">{{ task.title|title }}</a> </s></i>
+                    </div>
+                    <a class="delete-link" href="{% url 'delete-task' task.id %}">&#x274C;</a>
+                {% else %}
+                    <div class="task-title">
+                        <div class="icon-uncompleted-task"></div>
+                        <a href="{% url 'update-task' task.id %}">{{ task.title|title }}</a>
+                    </div>
+                    <a class="delete-link" href="{% url 'delete-task' task.id %}">&#x274C;</a>
+                {% endif %}
+            </div>
+            {% empty %}
+            <h3>No tienes ninguna tarea</h3>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
